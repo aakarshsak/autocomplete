@@ -1,3 +1,4 @@
+import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
@@ -8,6 +9,7 @@ import search from "./routes/search";
 const app = express();
 
 app.use(cors({ origin: "http://localhost:3000" }));
+app.use(bodyParser.json());
 app.use("/search", search);
 
 const PORT = process.env.PORT || 8080;

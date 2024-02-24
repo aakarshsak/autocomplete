@@ -12,14 +12,7 @@ const Search = () => {
         console.log("Clicked Outside");
         setSearching(false);
       } else {
-        const searchQuery = searchRef.current?.value;
-        const res = await axios.get(
-          `http://localhost:8080/search?q=${searchQuery}`
-        );
-
-        setSuggetionList(res.data.slice(0, 8));
         setSearching(true);
-        console.log(suggetionList);
       }
     };
 
@@ -30,12 +23,14 @@ const Search = () => {
     };
   }, [searchRef]);
 
-  const handleChange = async (value: string) => {
-    console.log(searchRef.current?.value);
-    const res = await axios.get("http://localhost:8080/search?q='Hello'");
+  useEffect(() => {
+    handleChange("");
+  }, []);
 
-    setSuggetionList(res.data.slice(0, 5));
-    setSearching(true);
+  const handleChange = async (value: string) => {
+    const res = await axios.get(`http://localhost:8080/search?q=${value}`);
+
+    setSuggetionList(res.data.slice(0, 8));
     console.log(suggetionList);
   };
 
@@ -54,11 +49,16 @@ const Search = () => {
           placeholder="Search Mockups, Logos..."
           required
           ref={searchRef}
+          onChange={(e) => handleChange(e.target.value)}
         />
         {searching && (
           <ul className="w-full text-lg text-gray-900 bg-gray-50 rounded-3xl rounded-t-none border focus:border-2 focus:border-tertiary focus:outline-none">
-            {suggetionList.map((item) => {
-              return <li className="py-2 pl-10 w-full">{item}</li>;
+            {suggetionList.map((item, index) => {
+              return (
+                <li key={index} className="py-2 pl-10 w-full">
+                  {item}
+                </li>
+              );
             })}
           </ul>
         )}
