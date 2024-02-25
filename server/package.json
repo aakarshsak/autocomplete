@@ -1,6 +1,7 @@
 {
   "scripts": {
     "dev": "nodemon dist/app.js",
+    "jobs": "cls && npx tsc -b && node dist/jobs/retrieve.js",
     "build": "npx tsc -b"
   },
   "devDependencies": {

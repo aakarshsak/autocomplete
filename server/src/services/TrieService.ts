@@ -1,15 +1,23 @@
+import dotenv from "dotenv";
 import Trie from "../db/trie";
+dotenv.config();
 
-export const insert = async (word: string) => {
+const AUTOCOMPLETE_LIMIT = process.env.SUGGESTION_LIMIT || "8";
+
+export const createRootNode = async () => {
   let root = await Trie.findOne({ isRoot: true });
   if (!root) {
     root = new Trie({ prefix: "", isRoot: true });
     await root.save();
   }
 
+  return root;
+};
+
+export const insert = async (word: string, root: any) => {
   let currentNode = root;
 
-  for (let char of word) {
+  for (let char of word.trim().toLowerCase()) {
     let childNode;
 
     for (let child of currentNode?.children) {
@@ -64,7 +72,7 @@ export const traverse = async (prefix: string) => {
 };
 
 export const search = async (word: string) => {
-  const currentNode = await traverse(word);
+  const currentNode = await traverse(word.toLowerCase());
   return currentNode?.isWord;
 };
 
@@ -74,6 +82,8 @@ export const allCombination = async (
   wordList: string[]
 ) => {
   //   console.log(startingNode, "STARTING");
+
+  if (wordList.length >= parseInt(AUTOCOMPLETE_LIMIT)) return wordList;
   if (startingNode.isWord) wordList.push(currentWord);
 
   for (let child of startingNode.children) {
@@ -89,7 +99,7 @@ export const allCombination = async (
 };
 
 export const autoComplete = async (prefix: string) => {
-  console.log(prefix, " Prefix autCOmplete method");
+  prefix = prefix.toLowerCase();
   let currentNode = await traverse(prefix);
   console.log(currentNode);
 

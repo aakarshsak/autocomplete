@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { autoComplete, insert } from "../services/TrieService";
+import { autoComplete, createRootNode, insert } from "../services/TrieService";
 import TrieStore from "../store/TrieStore";
 
 const routes = Router();
@@ -20,9 +20,8 @@ routes.post("/", async (req, res) => {
 
   store = new TrieStore();
   for (let item of body) {
-    // store.insert(item);
-    // await insert(item);
-    await insert(item);
+    let root = await createRootNode();
+    await insert(item, root);
   }
 
   res.json({ status: 200, message: "Successfully inserted..." });
