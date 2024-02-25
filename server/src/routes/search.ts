@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { autoComplete, insert } from "../services/TrieService2";
+import { autoComplete, insert } from "../services/TrieService";
 import TrieStore from "../store/TrieStore";
 
 const routes = Router();
