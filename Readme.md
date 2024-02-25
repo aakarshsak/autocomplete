@@ -44,7 +44,7 @@ This project is a simple yet powerful autocomplete component web application, si
 5. Create a .env file in the root directory and add your MongoDB URI:
 
    ```
-   MONGODB_URI=your_mongodb_uri
+   MONGO_URI=your_mongodb_uri
    ```
 
 6. Run the backend server:
