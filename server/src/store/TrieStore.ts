@@ -11,7 +11,7 @@ export default class TrieStore {
 
   insert = (word: string) => {
     let node: TrieNodeUn = this.root;
-    for (let char of word) {
+    for (let char of word.toLowerCase()) {
       if (!node?.getMap().has(char)) {
         node?.getMap().set(char, new TrieNode());
       }
@@ -22,7 +22,7 @@ export default class TrieStore {
 
   traverse = (prefix: string): TrieNodeUn => {
     let node: TrieNodeUn = this.root;
-    for (let char of prefix) {
+    for (let char of prefix.toLowerCase()) {
       let map: any = node?.getMap();
       if (!map.has(char)) return null;
       node = map.get(char);
