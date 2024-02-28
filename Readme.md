@@ -4,7 +4,7 @@
 
 This project is a simple yet powerful autocomplete component web application, similar to Google's search suggestions. Built with the MERN stack (MongoDB, Express.js, React, and Node.js), it provides suggestions to users as they type a word, enhancing the user experience by making search inputs faster and more intuitive.
 
-## Features
+## Features 
 
 - **Real-time Suggestions:** Offers real-time search suggestions to users.
 - **MERN Stack:** Utilizes MongoDB, Express.js, React, and Node.js for a full-stack JavaScript solution.
